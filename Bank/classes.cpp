@@ -2,8 +2,9 @@
 #include "classes.hpp"
 using namespace std;
 
+
 Account::Account(int accNum, double bal, double minBal, double odFee)
-    : accountNumber(accNum), balance(bal), minimalBalance(minBal), overdraftFee(odFee) {}
+    : accountNumber(accNum), balance(bal), minimumBalance(minBal), overdraftFee(odFee) {}
 
 int Account::getAccountNumber(){
     return accountNumber;
@@ -17,18 +18,79 @@ double Account::getBalance(){
     return balance;
 }
 
-void setBalance(double newBalance);
+void Account::setBalance(double newBalance){
+    balance = newBalance;
+}
 
-double getMinimalBalance();
+double Account::getMinimumBalance(){
+    return minimumBalance;
+}
 
-void setMinimalBalance(double newMinimalBalance);
+void Account::setMinimumBalance(double newMinimalBalance){
+    minimumBalance = newMinimalBalance;
+}
 
-double getOverdraftFee();
+double Account::getOverdraftFee(){
+    return overdraftFee;
+}
 
-void setOverdraftFee(double newOverdraftFee);
+void Account::setOverdraftFee(double newOverdraftFee){
+    overdraftFee = newOverdraftFee;
+}
 
-void DepositFunds(double amount);
+void Account::DepositFunds(double amount){
+    balance += amount;
+}
 
-void WithDrawFunds(double amount);
+void Account::WithDrawFunds(double amount){
+    if(balance - amount >= minimumBalance){
+        balance -= amount;
+    } else {
+        balance -= amount;
+        balance -=  overdraftFee;
+    }
+}
 
-void PrintAccountInfo();
+void Account::PrintAccountInfo(){
+    cout << "================\n"<< "Account Number: " << accountNumber 
+    << "\nBalance: " << balance 
+    << "\nMinimum Balance: " 
+    << minimumBalance << "\nOverdraft fee: " 
+    << overdraftFee << "\n================\n\n";
+}
+
+int Account::incrAccountNumber = 1000;
+
+Customer::Customer(std::string fName, std::string lName) :
+firstName(fName), lastName(lName), account(Account::incrAccountNumber++, 1000.0, 10.0, 30.0) {}
+
+std::string Customer::getFirstName(){
+    return firstName;
+}
+void Customer::setFirstName(std::string newFirstName){
+    firstName = newFirstName;
+}
+std::string Customer::getLastName(){
+    return lastName;
+}
+void Customer::setLastName(std::string newLastName){
+    lastName = newLastName;
+}
+Account& Customer::getAccount(){
+    return account;
+}
+void Customer::setAccount(Account newAccount){
+    account = newAccount;
+}
+
+Bank::Bank(int routNum) : routingNumber(routNum) {}
+Customer Bank::createNewCustomer(std::string first, std::string last){
+    Customer c(first, last);
+    return c;
+}
+int Bank::getRoutingNumber(){
+    return routingNumber;
+}
+void Bank::setRoutingNumber(int newRoutingNumber){
+    routingNumber = newRoutingNumber;
+}
