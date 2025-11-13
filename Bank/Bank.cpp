@@ -34,13 +34,21 @@ int main(){
     c4.getAccount().PrintAccountInfo();
 
     Customer c5 = bank1.createNewCustomer("Steven", "Rogers");
-    c5.getAccount().DepositFunds(400);
-    c5.getAccount().WithDrawFunds(65);
-    c5.getAccount().WithDrawFunds(45);
-    c5.getAccount().WithDrawFunds(80);
-    c5.getAccount().DepositFunds(33);
+    c5.getAccount().DepositFunds(500);
+    c5.getAccount().WithDrawFunds(1500);
+    c5.getAccount().DepositFunds(50);
+    c5.getAccount().WithDrawFunds(60);
+    
 
     c5.getAccount().PrintAccountInfo();
+
+    Customer c6 = bank1.createNewCustomer("Matthew", "McDonald");
+    c6.getAccount().DepositFunds(100);
+    c6.getAccount().WithDrawFunds(800);
+    c6.getAccount().WithDrawFunds(300);
+    c6.getAccount().WithDrawFunds(90);
+
+    c6.getAccount().PrintAccountInfo();
 
 
 

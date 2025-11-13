@@ -6,6 +6,7 @@ int accountNumber;
 double balance;
 double minimumBalance;
 double overdraftFee;
+double negLimit = -100.0;
 
 
 public:

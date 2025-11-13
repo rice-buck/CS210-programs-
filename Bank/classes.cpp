@@ -45,9 +45,11 @@ void Account::DepositFunds(double amount){
 void Account::WithDrawFunds(double amount){
     if(balance - amount >= minimumBalance){
         balance -= amount;
-    } else {
+    } else if(balance - amount <= minimumBalance && balance - amount - overdraftFee > negLimit){
         balance -= amount;
-        balance -=  overdraftFee;
+        balance -= overdraftFee;
+    } else {
+        cout << "Not enough funds. This withdrawl would bring your balance below the minimum balance and the negative limit.\n";
     }
 }
 
@@ -59,10 +61,10 @@ void Account::PrintAccountInfo(){
     << overdraftFee << "\n================\n\n";
 }
 
-int Account::incrAccountNumber = 1000;
+int Account::incrAccountNumber = 1000; //increments account number
 
 Customer::Customer(std::string fName, std::string lName) :
-firstName(fName), lastName(lName), account(Account::incrAccountNumber++, 1000.0, 10.0, 30.0) {}
+firstName(fName), lastName(lName), account(Account::incrAccountNumber++, 1000.0, 0.0, 30.0) {}
 
 std::string Customer::getFirstName(){
     return firstName;
